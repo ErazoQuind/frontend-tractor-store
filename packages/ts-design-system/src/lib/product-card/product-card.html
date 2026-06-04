@@ -1,0 +1,13 @@
+<div class="ts-product-card">
+  <img [src]="imageUrl" [alt]="title" class="ts-product-card__image" />
+
+  <div class="ts-product-card__content">
+    <h3 class="ts-product-card__title">{{ title }}</h3>
+
+    @if (price !== undefined) {
+    <p class="ts-product-card__price">
+      {{ price | currency:'USD':'symbol':'1.0-0' }}
+    </p>
+    }
+  </div>
+</div>

@@ -1,0 +1,42 @@
+/* Bloque Principal */
+.ts-product-card {
+  background-color: var(--ts-card-bg, #ffffff);
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  max-width: 320px;
+  font-family: var(--font-family-base, 'Raleway', sans-serif);
+  cursor: pointer;
+}
+
+.ts-product-card:hover {
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transform: translateY(-2px);
+}
+
+/* Elementos BEM */
+.ts-product-card__image {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  display: block;
+}
+
+.ts-product-card__content {
+  padding: var(--spacing-4, 1rem);
+}
+
+.ts-product-card__title {
+  margin: 0 0 0.5rem 0;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--color-text-base, #111827);
+}
+
+.ts-product-card__price {
+  margin: 0;
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: var(--color-primary, #22c55e);
+}
