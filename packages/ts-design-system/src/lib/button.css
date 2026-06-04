@@ -1,0 +1,44 @@
+/* Metodología BEM: Block (ts-button) */
+.ts-button {
+  border: none;
+  border-radius: 0.375rem;
+  font-family: var(--font-family-base, 'Raleway', sans-serif);
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+.ts-button:active {
+  transform: scale(0.98);
+}
+
+/* Modificadores de Variante (--) */
+.ts-button--primary {
+  background-color: var(--ts-button-bg, #22c55e);
+  color: var(--ts-button-text, #ffffff);
+}
+
+.ts-button--primary:hover {
+  background-color: var(--color-primary-dark, #15803d);
+}
+
+.ts-button--secondary {
+  background-color: var(--color-surface, #f3f4f6);
+  color: var(--color-text-base, #111827);
+}
+
+/* Modificadores de Tamaño (--) */
+.ts-button--small {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+}
+
+.ts-button--medium {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+}
+
+.ts-button--large {
+  padding: 1rem 2rem;
+  font-size: 1.125rem;
+}

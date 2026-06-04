@@ -4,12 +4,59 @@
   "sourceRoot": "packages/ts-design-system/src",
   "prefix": "lib",
   "projectType": "library",
-  "tags": [
-    "type:shared"
-  ],
+  "tags": ["type:shared"],
   "targets": {
     "lint": {
       "executor": "@nx/eslint:lint"
+    },
+    "storybook": {
+      "executor": "@storybook/angular:start-storybook",
+      "options": {
+        "port": 4400,
+        "configDir": "packages/ts-design-system/.storybook",
+        "browserTarget": "shell:build",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "build-storybook": {
+      "executor": "@storybook/angular:build-storybook",
+      "outputs": ["{options.outputDir}"],
+      "options": {
+        "outputDir": "dist/storybook/ts-design-system",
+        "configDir": "packages/ts-design-system/.storybook",
+        "browserTarget": "shell:build",
+        "compodoc": false
+      },
+      "configurations": {
+        "ci": {
+          "quiet": true
+        }
+      }
+    },
+    "test-storybook": {
+      "executor": "nx:run-commands",
+      "options": {
+        "command": "test-storybook -c packages/ts-design-system/.storybook --url=http://localhost:4400"
+      }
+    },
+    "static-storybook": {
+      "executor": "@nx/web:file-server",
+      "dependsOn": ["build-storybook"],
+      "options": {
+        "buildTarget": "ts-design-system:build-storybook",
+        "staticFilePath": "dist/storybook/ts-design-system",
+        "spa": true
+      },
+      "configurations": {
+        "ci": {
+          "buildTarget": "ts-design-system:build-storybook:ci"
+        }
+      }
     }
   }
 }
