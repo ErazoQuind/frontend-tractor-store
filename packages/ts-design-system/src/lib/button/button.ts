@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'ts-button',
-  standalone: true,
   imports: [CommonModule],
   templateUrl: './button.html',
   styleUrls: ['./button.css']
