@@ -1,0 +1,9 @@
+<div class="ts-mini-cart" [class.ts-mini-cart--highlight]="isHighlighted">
+  <span class="ts-mini-cart__icon">🛒</span>
+
+  @if (itemCount > 0) {
+  <span class="ts-mini-cart__badge">
+    {{ itemCount }}
+  </span>
+  }
+</div>
