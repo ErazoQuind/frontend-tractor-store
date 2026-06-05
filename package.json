@@ -2,7 +2,10 @@
   "name": "@tractor-store/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "build-storybook": "nx run ts-design-system:build-storybook",
+    "chromatic": "npx chromatic --project-token=chpt_a4162f9ae0a9265"
+  },
   "private": true,
   "devDependencies": {
     "@angular-devkit/core": "~21.2.0",
@@ -29,6 +32,7 @@
     "@typescript-eslint/utils": "^8.40.0",
     "angular-eslint": "^21.2.0",
     "autoprefixer": "10.5.0",
+    "chromatic": "17.2.0",
     "eslint": "^9.8.0",
     "eslint-config-prettier": "^10.0.0",
     "nx": "22.7.3",

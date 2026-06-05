@@ -1,9 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'ts-button',
-  imports: [CommonModule],
   templateUrl: './button.html',
   styleUrls: ['./button.css']
 })

@@ -1,0 +1,67 @@
+
+> @tractor-store/source@0.0.0 build-storybook /home/quind/Proyects/quind/tractor-store/frontend-tractor-store
+> nx run ts-design-system:build-storybook --output-dir=/tmp/chromatic--193638-Uo8ARO8BYq0f
+
+
+[2m> [22m[2mnx run[22m ts-design-system:build-storybook --output-dir=/tmp/chromatic--193638-Uo8ARO8BYq0f
+
+[90m┌[39m  Building Storybook
+[90m│[39m
+[32m◇[39m  Cleaning outputDir:
+[90m│[39m  [36m../../../../../../tmp/chromatic--193638-Uo8ARO8BYq0f[39m
+[90m│[39m
+[32m◇[39m  Loading presets
+[90m│[39m
+[32m◇[39m  Building manager..
+[90m│[39m
+[34m●[39m  Building preview..
+[90m│[39m
+[34m●[39m  Using implicit CSS loaders
+[90m│[39m
+[34m●[39m  Using angular browser target options from "shell:build"
+[90m│[39m
+[34m●[39m  Using angular project with
+[90m│[39m  "tsConfig:packages/ts-design-system/.storybook/tsconfig.json"
+[90m│[39m
+[34m●[39m  Using default Webpack5 setup
+[90m│[39m
+[33m▲[39m  Module Warning (from
+[90m│[39m  ./node_modules/.pnpm/sass-loader@16.0.5_@rspack+core@1.6.8_@swc+helpers@0.5.21__sass-embedded@1.100.0_sass@1_1c420f78d2678853c8caa1ee1a76d2aa/node_modules/sass-loader/dist/cjs.js):
+[90m│[39m  Deprecation Warning on line 4, column 8 of
+[90m│[39m  file:///home/quind/Proyects/quind/tractor-store/frontend-tractor-store/apps/shell/src/styles.scss:4:8:
+[90m│[39m  Sass @import rules are deprecated and will be removed in Dart Sass
+[90m│[39m  3.0.0.
+[90m│[39m  More info and automated migrator: ]8;;https://sass-lang.com/d/importhttps://sass-lang.com/d/import]8;;
+[90m│[39m  4 | @import "tailwindcss";
+[90m│[39m  apps/shell/src/styles.scss 5:9  root stylesheet
+[90m│[39m
+[33m▲[39m  /home/quind/Proyects/quind/tractor-store/frontend-tractor-store/packages/ts-design-system/.storybook/main.ts
+[90m│[39m  is part of the TypeScript compilation but it's unused.
+[90m│[39m  Add only entry points to the 'files' or 'include' properties in your
+[90m│[39m  tsconfig.
+[90m│[39m
+[33m▲[39m  asset size limit: The following asset(s) exceed the recommended size
+[90m│[39m  limit (244 KiB).
+[90m│[39m  This can impact web performance.
+[90m│[39m  Assets:
+[90m│[39m  473.7db650db.iframe.bundle.js (1.96 MiB)
+[90m│[39m
+[33m▲[39m  entrypoint size limit: The following entrypoint(s) combined asset size
+[90m│[39m  exceeds the recommended limit (244 KiB). This can impact web
+[90m│[39m  performance.
+[90m│[39m  Entrypoints:
+[90m│[39m  main (2 MiB)
+[90m│[39m  runtime~main.cdf0998e.iframe.bundle.js
+[90m│[39m  473.7db650db.iframe.bundle.js
+[90m│[39m  main.4d28ef334d5818c55f62.css
+[90m│[39m  main.85708b78.iframe.bundle.js
+[90m│[39m
+[32m◇[39m  Output directory: /tmp/chromatic--193638-Uo8ARO8BYq0f
+[90m│[39m
+[90m└[39m  Storybook build completed successfully
+
+[2m[32m[39m[22m
+
+[7m[1m[32m NX [39m[22m[27m  [32mSuccessfully ran target [1mbuild-storybook[22m for project ts-design-system[39m
+
+

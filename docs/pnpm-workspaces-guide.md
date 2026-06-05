@@ -5,27 +5,34 @@ Esta guía detalla el funcionamiento de **pnpm workspaces** en arquitecturas a g
 ---
 
 ## 🚀 1. ¿Qué es pnpm Workspaces?
+
 Un **workspace** (espacio de trabajo) en **pnpm** es una configuración que nos permite agrupar múltiples subproyectos (aplicaciones y librerías) dentro de un único repositorio (Monorepo), permitiéndoles compartir dependencias y referenciarse mutuamente de forma local y transparente.
 
+La gestión de dependencias es un aspecto fundamental en el desarrollo de software, especialmente en entornos que involucran múltiples proyectos o componentes. A lo largo de los años, han surgido diversas herramientas para abordar los desafíos asociados con la gestión de dependencias. [un análisis de npm, Yarn y pnpm en el Ecosistema JavaScript](https://medium.com/somos-pragma/gesti%C3%B3n-de-dependencias-en-el-desarrollo-de-software-un-an%C3%A1lisis-de-npm-yarn-y-pnpm-en-el-37edee2b858f)
+
 ### Estructura `pnpm-workspace.yaml`
+
 En la raíz de nuestro proyecto, el archivo `pnpm-workspace.yaml` define los límites del monorepo indicando qué carpetas contienen paquetes gestionados por pnpm:
 
 ```yaml
 packages:
-  - 'apps/*'        # Aplicaciones principales y hosts (como apps/shell)
-  - 'packages/*'    # Micro-frontends (MFEs) y librerías transversales
-  - 'libs/*'        # Utilidades compartidas secundarias
-  - 'playground/*'  # Espacios aislados de experimentación (como elements-lab)
+  - 'apps/*' # Aplicaciones principales y hosts (como apps/shell)
+  - 'packages/*' # Micro-frontends (MFEs) y librerías transversales
+  - 'libs/*' # Utilidades compartidas secundarias
+  - 'playground/*' # Espacios aislados de experimentación (como elements-lab)
 ```
 
 ---
 
 ## 🔗 2. Linking Local Automático: La Magia de pnpm
+
 En el desarrollo de software tradicional, si el equipo crea una librería compartida (ej. `shared-catalog`), para usarla en un micro-frontend tendría dos opciones sumamente ineficientes:
+
 1. **Publicar en npm** cada vez que se hace un cambio menor (incrementar versión, subir a red, reinstalar en el MFE).
 2. **Copiar y pegar** el código, lo que destruye el principio DRY (Don't Repeat Yourself) y genera problemas de mantenimiento.
 
 ### ¿Cómo lo resuelve pnpm?
+
 **pnpm workspaces** resuelve esto a través de **Symlinks (Enlaces Simbólicos)** en el sistema de archivos:
 
 ```
@@ -39,36 +46,42 @@ En el desarrollo de software tradicional, si el equipo crea una librería compar
 ```
 
 Al compilar o desarrollar localmente:
-* pnpm crea una referencia en `node_modules` que apunta **directamente** a la carpeta física de la librería en tu disco duro.
-* Si haces un cambio en `shared-catalog`, **mfe-explore lo detecta instantáneamente** en tiempo real sin necesidad de compilar la librería por separado, empaquetarla o publicarla.
-* **Cero latencia:** La edición es continua y fluida, incrementando la velocidad de desarrollo en un 400%.
+
+- pnpm crea una referencia en `node_modules` que apunta **directamente** a la carpeta física de la librería en tu disco duro.
+- Si haces un cambio en `shared-catalog`, **mfe-explore lo detecta instantáneamente** en tiempo real sin necesidad de compilar la librería por separado, empaquetarla o publicarla.
+- **Cero latencia:** La edición es continua y fluida, incrementando la velocidad de desarrollo en un 400%.
 
 ---
 
 ## 🔒 3. Frozen Lockfile en CI/CD: La Regla de Oro
+
 Cuando ejecutas `pnpm install` en tu máquina local, pnpm actualiza el archivo `pnpm-lock.yaml` para registrar exactamente qué sub-dependencias se instalaron.
 
 En un entorno de **Integración Continua (CI)** como GitHub Actions o Jenkins, **NUNCA** debes permitir que el gestor de paquetes modifique este archivo.
 
 ### Comando Obligatorio en CI:
+
 ```bash
 pnpm install --frozen-lockfile
 ```
 
 > [!IMPORTANT]
 > **¿Por qué es crítico?**
-> * **Reproducibilidad:** Asegura que los servidores de producción e integración continua descarguen **exactamente las mismas versiones de bytes** que el desarrollador validó localmente.
-> * **Seguridad:** Si un atacante altera maliciosamente una versión en un registro externo que cumple con un rango como `^1.2.0`, `--frozen-lockfile` bloqueará la instalación porque el hash guardado en el lockfile no coincidirá.
-> * **Fallo rápido:** Si un desarrollador agrega una dependencia a su `package.json` pero olvida subir el `pnpm-lock.yaml` actualizado al repositorio de Git, el build de CI fallará inmediatamente. Esto previene despliegues corruptos.
+>
+> - **Reproducibilidad:** Asegura que los servidores de producción e integración continua descarguen **exactamente las mismas versiones de bytes** que el desarrollador validó localmente.
+> - **Seguridad:** Si un atacante altera maliciosamente una versión en un registro externo que cumple con un rango como `^1.2.0`, `--frozen-lockfile` bloqueará la instalación porque el hash guardado en el lockfile no coincidirá.
+> - **Fallo rápido:** Si un desarrollador agrega una dependencia a su `package.json` pero olvida subir el `pnpm-lock.yaml` actualizado al repositorio de Git, el build de CI fallará inmediatamente. Esto previene despliegues corruptos.
 
 ---
 
 ## 🔑 4. `.npmrc` con Registros Privados y Autenticación
+
 En una corporación, la mayoría de los paquetes clave o librerías de diseño no son públicos. Se almacenan en registros de paquetes privados como **JFrog Artifactory, Sonatype Nexus o GitHub Packages**.
 
 El archivo `.npmrc` se utiliza para configurar de dónde descarga npm/pnpm las dependencias y cómo se autentica.
 
 ### Anatomía de un `.npmrc` Corporativo
+
 ```ini
 # 1. Definir el registro global oficial
 registry=https://registry.npmjs.org/
@@ -85,8 +98,9 @@ registry=https://registry.npmjs.org/
 > [!WARNING]
 > **¡NUNCA hardcodees un Token de acceso directo en el código!**
 > Si subes un token privado al repositorio Git, comprometerás la seguridad de toda la empresa. Usa siempre la variable `${NPM_TOKEN}`.
-> * **Localmente:** Configura el token en tu terminal: `export NPM_TOKEN=ghp_tusecretotoken...`
-> * **En GitHub Actions:** Define un Secret en el repositorio y pásalo en el workflow:
+>
+> - **Localmente:** Configura el token en tu terminal: `export NPM_TOKEN=ghp_tusecretotoken...`
+> - **En GitHub Actions:** Define un Secret en el repositorio y pásalo en el workflow:
 >   ```yaml
 >   env:
 >     NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
